@@ -29,11 +29,20 @@ while game:
     events = pygame.event.get()
     background.move(window)
 
+    render_text_hp = font.render(f"x{hero.hp}", True,RED)
+    render_kill_bot = font.render(f"{hero.kill_bot}", True,RED)
+    window.blit(heart_image,(10,10))
+    window.blit(render_text_hp,(45,12))
+    window.blit(skull_image,(size_window[0] - 85,10))
+    window.blit(render_kill_bot,(size_window[0] - 50,12))
+
+
     hero.move(window)
     for bot in bot_list:
         bot.move(window)
         bot.shoot(end_time_bot)
-        bot.collide(bullet_list_hero)
+        if bot.collide(bullet_list_hero):
+            hero.kill_bot += 1
 
     end_time_bot = pygame.time.get_ticks()
     if end_time_bot - start_time_bot > 2000:
@@ -52,8 +61,8 @@ while game:
     for bullet in bullet_list_bot:
         bullet.move(window)
 
-    hero.collide(bot_list)
-    hero.collide(bullet_list_bot)
+    hero.collide_enemy(bot_list)
+    hero.collide_enemy(bullet_list_bot)
 
     for event in events:
         if event.type == pygame.QUIT:
@@ -75,5 +84,3 @@ while game:
 
     clock.tick(FPS)
     pygame.display.flip()
-            
-            

@@ -36,3 +36,5 @@ bot_image_list=[
 
 background_image = pygame.transform.scale(pygame.image.load(os.path.join(abs_path, "image", "test.png")), size_background)
 heart_image = pygame.transform.scale(pygame.image.load(os.path.join(abs_path, "image", "test.png")), [30,30])
+skull_image = pygame.transform.scale(pygame.image.load(os.path.join(abs_path, "image", "test.png")), [30,30])
+

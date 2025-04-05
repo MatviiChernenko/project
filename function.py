@@ -24,6 +24,7 @@ class Hero (Plane):
         self.start_y = y
         self.time_shoot = 0
         self.can_shoot = True
+        self.kill_bot = 0
 
     def move(self,window):
         if self.walk["left"] and self.x > 0:
@@ -44,11 +45,14 @@ class Hero (Plane):
             self.can_shoot = True
             self.time_shoot = 0
 
-    def collide(self, objects):
+    def collide_enemy(self, objects):
         index = self.collidelist(objects)
         if index != -1:
             self.hp -= 1
             objects.pop(index)
+
+    #def collide_buff(self,buff_list):
+
 
 
 
@@ -75,6 +79,8 @@ class Bot(Plane):
         if index != -1:
             bot_list.remove(self)
             objects.pop(index)
+            return True
+        return False
     
 
 
@@ -94,9 +100,15 @@ class Bullet(pygame.Rect):
         #window.blit(self.image, (self.x, self.y))
 
 class Buff(pygame.Rect):
-    def __init__(self,x,y,width,height,image):
+    def __init__(self,x,y,width,height,image,designed,step):
         super().__init__(x,y,width,height)
         self.image = image
+        self.designed = designed
+        self.step = step
+
+    def move(self,window):
+        self.y += self.step
+        window.blit(self.image,(self.x,self.y))
 
 class Background(pygame.Rect):
     def __init__(self, height, image, step):
@@ -119,5 +131,4 @@ class Background(pygame.Rect):
         window.blit(self.image1,(0,self.y1))
         window.blit(self.image2,(0,self.y2))
 
-        
-
+                
