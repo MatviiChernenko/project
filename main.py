@@ -63,6 +63,12 @@ while game:
 
     hero.collide_enemy(bot_list)
     hero.collide_enemy(bullet_list_bot)
+    index_buff = hero.collide_buff(Buff.buff_list)
+    if index_buff != -1:
+        Buff.buff_list(index_buff).completing(hero,bot_list)
+    for buff in Buff.buff_list:
+        buff.move(window)
+        buff.work_time(hero)
 
     for event in events:
         if event.type == pygame.QUIT:
@@ -73,7 +79,7 @@ while game:
             if event.key == pygame.K_d:
                 hero.walk["right"] = True
             if event.key == pygame.K_SPACE and hero.can_shoot:
-                bullet_list_hero.append(Bullet(hero.centerx -5, hero.y, 10, 20, RED, -5, None))
+                bullet_list_hero.append(Bullet(hero.centerx -5, hero.y, 10, 20, RED, hero.speed_bullet, None))
                 hero.can_shoot = False
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_a:
