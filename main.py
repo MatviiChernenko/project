@@ -61,14 +61,20 @@ while game:
     for bullet in bullet_list_bot:
         bullet.move(window)
 
+    for buf in Buff.buff_list:
+        buf.move(window)
+        buf.collide(hero,bot_list)
+        if buf.active:
+            buf.work_time(end_time_bot,hero)    
+
     hero.collide_enemy(bot_list)
     hero.collide_enemy(bullet_list_bot)
-    index_buff = hero.collide_buff(Buff.buff_list)
-    if index_buff != -1:
-        Buff.buff_list(index_buff).completing(hero,bot_list)
-    for buff in Buff.buff_list:
-        buff.move(window)
-        buff.work_time(hero)
+    #index_buff = hero.collide_buff(Buff.buff_list)
+    #if index_buff != -1:
+    #    Buff.buff_list(index_buff).completing(hero,bot_list)
+    #for buff in Buff.buff_list:
+    #    buff.move(window)
+    #    buff.work_time(hero)
 
     for event in events:
         if event.type == pygame.QUIT:

@@ -81,6 +81,7 @@ class Bot(Plane):
     def collide(self, objects):
         index = self.collidelist(objects)
         if index != -1:
+            creat_buff(self.x,self.y,self.step)
             bot_list.remove(self)
             objects.pop(index)
             return True
@@ -111,21 +112,23 @@ class Buff(pygame.Rect):
         self.designed = designed
         self.step = step
         self.time_start = 0
-        self.working_time = 0
+        self.working_time = working_time
+        self.active = False
 
 
     def move(self,window):
-        self.y += self.step
-        window.blit(self.image,(self.x,self.y))
+        if not self.active:
+            self.y += self.step
+            window.blit(self.image,(self.x,self.y))
 
-    def completing(self,hero):
+    def completing(self,hero,bot_list):
         if self.designed == "HP":
             hero.hp += 1
         elif self.designed == "speed_bullet":
             hero.speed_bullet *= 2
             self.time_start = pygame.time.get_ticks()
         elif self.designed == "speed_shoott":
-            hero.shoot_limit *= 2
+            hero.shoot_limit /= 2
             self.time_start = pygame.time.get_ticks()
         elif self.designed == "imortal":
             hero.imortal = True
@@ -134,31 +137,32 @@ class Buff(pygame.Rect):
             for bot in bot_list:
                 bot.freezing = True
                 bot.step = 0
-            Buff.buff_list.remove(self)
             return 0
         self.y = size_window[1] + 100
         self.step = 0
 
-def creat_buff():
-    value = randint(1,100)
-
-    for kof in range(COUNT_BUFF):
-        if kof < value <= kof * (100 / COUNT_BUFF):
 
 
     def work_time(self,end_time,hero):
-        if end_time - self.time_start > self.workig_time:
+        if end_time - self.time_start > self.working_time:
             if self.designed == "speed_bullet":
                 hero.speed_bullet /= 2
-                self.time_start = pygame.time.get_ticks()
             elif self.designed == "speed_shoott":
-                hero.shoot_limit /= 2
-                self.time_start = pygame.time.get_ticks()
+                hero.shoot_limit *= 2
             elif self.designed == "imortal":
                 hero.imortal = True
-                self.time_start = pygame.time.get_ticks()
             Buff.buff_list.remove(self)
 
+    def collide(self,hero,bot_list):
+        if self.colliderect(hero) and not self.active:
+            self.active = True
+            self.completing(hero,bot_list)
+
+def creat_buff(x,y,step):
+    index = randint(0,len(BUFFS) -1)
+    Buff.buff_list.append(
+        Buff(x, y, size_buff[0],size_buff[1], buff_images[index],BUFFS[index],step, 7000)
+        )
 
 class Background(pygame.Rect):
     def __init__(self, height, image, step):
@@ -180,6 +184,5 @@ class Background(pygame.Rect):
         
         window.blit(self.image1,(0,self.y1))
         window.blit(self.image2,(0,self.y2))
-
 
                 
