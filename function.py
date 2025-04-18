@@ -137,7 +137,6 @@ class Buff(pygame.Rect):
             for bot in bot_list:
                 bot.freezing = True
                 bot.step = 0
-            return 0
         self.y = size_window[1] + 100
         self.step = 0
 
@@ -161,7 +160,7 @@ class Buff(pygame.Rect):
 def creat_buff(x,y,step):
     index = randint(0,len(BUFFS) -1)
     Buff.buff_list.append(
-        Buff(x, y, size_buff[0],size_buff[1], buff_images[index],BUFFS[index],step, 7000)
+        Buff(x, y, size_buff[0],size_buff[1], buff_images[index],BUFFS[index],2, 7000)
         )
 
 class Background(pygame.Rect):
@@ -185,4 +184,4 @@ class Background(pygame.Rect):
         window.blit(self.image1,(0,self.y1))
         window.blit(self.image2,(0,self.y2))
 
-                
+    

@@ -40,10 +40,11 @@ bot_image_list=[
 background_image = pygame.transform.scale(pygame.image.load(os.path.join(abs_path, "image", "space1.png")), size_background)
 heart_image = pygame.transform.scale(pygame.image.load(os.path.join(abs_path, "image", "heart.png")), [30,30])
 skull_image = pygame.transform.scale(pygame.image.load(os.path.join(abs_path, "image", "skull.png")), [30,30])
+
 buff_images=[
-pygame.transform.scale(pygame.image.load(os.path.join(abs_path, "image", "test.png")), size_buff),
-pygame.transform.scale(pygame.image.load(os.path.join(abs_path, "image", "test.png")), size_buff),
-pygame.transform.scale(pygame.image.load(os.path.join(abs_path, "image", "test.png")), size_buff),
-pygame.transform.scale(pygame.image.load(os.path.join(abs_path, "image", "test.png")), size_buff),
-pygame.transform.scale(pygame.image.load(os.path.join(abs_path, "image", "test.png")), size_buff)
+pygame.transform.scale(pygame.image.load(os.path.join(abs_path, "image", "b_heart.png")), size_buff),
+pygame.transform.scale(pygame.image.load(os.path.join(abs_path, "image", "b_bullet_speed.png")), size_buff),
+pygame.transform.scale(pygame.image.load(os.path.join(abs_path, "image", "b_bullet_limit.png")), size_buff),
+pygame.transform.scale(pygame.image.load(os.path.join(abs_path, "image", "b_imortal.png")), size_buff),
+pygame.transform.scale(pygame.image.load(os.path.join(abs_path, "image", "b_freezing.png")), size_buff)
 ]
