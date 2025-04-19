@@ -41,6 +41,7 @@ class Hero (Plane):
             self.image = self.image_list[0]
         window.blit(self.image, (self.x, self.y))
         self.shoot()
+        
 
     def shoot(self):
         self.time_shoot += 1
@@ -75,20 +76,50 @@ class Bot(Plane):
     def shoot(self, time_bot):
         if time_bot - self.start_time > self.random_time and not self.freezing:
             self.start_time = time_bot
-            self.random_time = randint(1500,2500)
+            self.random_time = randint(1500,2000)
             bullet_list_bot.append(Bullet(self.centerx -5, self.bottom - 20, 10, 20, GREEN, 4, None))
 
     def collide(self, objects):
         index = self.collidelist(objects)
         if index != -1:
-            creat_buff(self.x,self.y,self.step)
+            if randint(1,100) <= 20:
+                creat_buff(self.x,self.y,self.step)
             bot_list.remove(self)
             objects.pop(index)
             return True
         return False
     
+class Bot2(Plane):
+    def __init__(self,x,y,width,height,image_list,step,hp):
+        super().__init__(x,y,width,height,image_list,step)
+        self.hp = hp
+        self.start_x = x
+        self.start_y = y
+        self.start_time = 0
+        self.random_time = randint(1500,2500)
+        self.freezing = False
 
+    def move(self,window): 
+        self.y += self.step
+        window.blit(self.image, (self.x, self.y)) 
 
+    def shoot(self, time_bot):
+        if time_bot - self.start_time > self.random_time and not self.freezing:
+            self.start_time = time_bot
+            self.random_time = randint(1500,2000)
+            bullet_list_bot.append(Bullet(self.centerx -5, self.bottom - 20, 10, 20, GREEN, 4, None))
+
+    def collide(self, objects):
+        index = self.collidelist(objects)
+        if index != -1:
+            self.hp -= 1
+            objects.pop(index)
+            if self.hp == 0:
+                if randint(1,100) <= 20:
+                    creat_buff(self.x,self.y,self.step)
+                bot2_list.remove(self)
+                return True
+            return False
 
 class Bullet(pygame.Rect):
     def __init__(self,x,y,width,height,color,step,image= None):
@@ -137,6 +168,7 @@ class Buff(pygame.Rect):
             for bot in bot_list:
                 bot.freezing = True
                 bot.step = 0
+            return 0
         self.y = size_window[1] + 100
         self.step = 0
 
@@ -160,7 +192,7 @@ class Buff(pygame.Rect):
 def creat_buff(x,y,step):
     index = randint(0,len(BUFFS) -1)
     Buff.buff_list.append(
-        Buff(x, y, size_buff[0],size_buff[1], buff_images[index],BUFFS[index],2, 7000)
+        Buff(x, y, size_buff[0],size_buff[1], buff_images[index],BUFFS[index],step, 7000)
         )
 
 class Background(pygame.Rect):
@@ -184,4 +216,4 @@ class Background(pygame.Rect):
         window.blit(self.image1,(0,self.y1))
         window.blit(self.image2,(0,self.y2))
 
-    
+                

@@ -6,7 +6,8 @@ pygame.init()
 size_window=(500, 600) 
 size_background = (3000, 3000)
 size_hero = (50, 50)
-size_bot =(42, 48)
+size_bot =(52, 58)
+size_bot2 =(82, 88)
 size_buff = (50,50)
 
 BLACK=(5, 5,5)
@@ -20,6 +21,7 @@ BUFFS = ["HP","speed_bullet","speed_shoot","imortal",'freezing']
 
 heart_list= list()
 bot_list= list()
+bot2_list= list()
 bullet_list_hero = list()
 bullet_list_bot = list()
 
@@ -33,14 +35,13 @@ bot_image_list=[
     pygame.transform.scale(pygame.image.load(os.path.join(abs_path, "image", "robbership2.png")), size_bot) 
 ]
     
-#bot2_image_list=[
-#pygame, transform.scale(pygame.image.load(os.path.join(abs_path, "image", "bot_red.png")), size_bot) 
-#] 
+bot2_image_list=[
+pygame.transform.scale(pygame.image.load(os.path.join(abs_path, "image", "big_robbership.png")), size_bot2) 
+] 
 
 background_image = pygame.transform.scale(pygame.image.load(os.path.join(abs_path, "image", "space1.png")), size_background)
 heart_image = pygame.transform.scale(pygame.image.load(os.path.join(abs_path, "image", "heart.png")), [30,30])
 skull_image = pygame.transform.scale(pygame.image.load(os.path.join(abs_path, "image", "skull.png")), [30,30])
-
 buff_images=[
 pygame.transform.scale(pygame.image.load(os.path.join(abs_path, "image", "b_heart.png")), size_buff),
 pygame.transform.scale(pygame.image.load(os.path.join(abs_path, "image", "b_bullet_speed.png")), size_buff),

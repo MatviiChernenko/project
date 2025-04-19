@@ -55,6 +55,16 @@ while game:
             bot_image_list,
             2
          ))
+        if hero.kill_bot == 5:
+            bot2_list.append(Bot2(
+                randint(0,size_window[0] - size_bot[0]),
+                - size_bot2[1],
+                size_bot2[0],
+                size_bot2[1],
+                bot2_image_list,
+                2,
+                2
+             ))           
 
     for bullet in bullet_list_hero:
         bullet.move(window)
